@@ -1,0 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MvcNet.Models
+{
+    public class TagModel {
+        [Key]
+        [Column(Order=1)]
+        public int postId {get; set;}
+        [Key]
+        [Column(Order=2)]
+        public int tagId {get; set;}
+    }
+}
