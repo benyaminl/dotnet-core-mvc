@@ -11,7 +11,7 @@ namespace MvcNet.Models
         public DateTime insertDate {get; set;}
         public DateTime publishDate {get; set;}
         
-        [ForeignKey("id")]
-        public ICollection<TagModel> tags {get; set;} = null!;
+        [ForeignKey("postId")]
+        public ICollection<PostTagsModel> blogTags {get; set;} = null!;
     }
 }

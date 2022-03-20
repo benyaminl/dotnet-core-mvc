@@ -1,0 +1,21 @@
+@model IEnumerable<MvcNet.Models.PostModel>
+
+@{
+    ViewData["Title"] = "Blog Post List";
+}
+
+<div class="text-center">
+    <h1 class="display-4">This is Blog Post Page</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@foreach (var i in Model)
+{
+    <div>
+        <h3>@i.title</h3>
+        <h5>@i.publishDate</h5>
+        <article>
+            @i.content.Substring(0, 100) ...
+        </article>
+    </div>
+}
