@@ -1,0 +1,21 @@
+@model MvcNet.Models.PostModel
+
+@{
+    ViewData["Title"] = Model.title;
+}
+
+<div class="text-center">
+    <h1 class="display-4">This is Blog Post Page</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<h1>
+    @Model.title
+</h1>
+<div>
+    @Model.publishDate - 
+    @Model.insertDate
+</div>
+<article>
+    @Model.content
+</article>

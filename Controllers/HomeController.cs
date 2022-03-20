@@ -31,10 +31,16 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Blog()
+    public IActionResult Blog(int id)
     {
-        var data = _db.posts.ToList();
-        return View(data);
+        if (id == 0) {
+            var data = _db.posts.ToList();
+            return View("/Views/Blog/BlogPostList.cshtml",data);
+        } else {
+            
+            var data = _db.posts.Find(id);
+            return View("/Views/Blog/BlogPostDetail.cshtml",data);
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
