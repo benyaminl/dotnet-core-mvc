@@ -1,0 +1,33 @@
+﻿@model ICollection<MvcNet.Models.PostModel>
+@{
+    ViewData["Title"] = "Blog Post Master";
+}
+
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
+    <a href="~/Post/new">New Post</a>
+    <table class="table table-default">
+        <thead>
+            <tr>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Published Date</td>
+            <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var i in Model)
+        {
+        <tr>
+            <td>@i.id</td>
+            <td>@i.title</td>
+            <td>@i.publishDate</td>
+            <td>
+                <a href="~/Blog/@i.id" class="btn btn-primary">Edit</a>
+                <a href="~/Blog/@i.id/delete" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>
