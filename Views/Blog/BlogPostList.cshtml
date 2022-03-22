@@ -15,7 +15,7 @@
         <h3><a href="~/Home/Blog/@i.id">@i.title</a></h3>
         <h5>@i.publishDate</h5>
         <article>
-            @i.content.Substring(0, 100) ...
+            @i.content.Substring(0, (i.content.Length > 100) ? 100 : i.content.Length ) ...
         </article>
     </div>
 }

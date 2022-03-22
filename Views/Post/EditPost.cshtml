@@ -1,0 +1,19 @@
+﻿
+@model MvcNet.Models.PostModel
+@{
+    ViewData["Title"] = "Blog Post New";
+}
+
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
+    @if (TempData["message"] != null)
+    {
+        @TempData["message"]
+    }
+    <form method="post" asp-action="UpdatePostData" asp-controller="Post">
+        <label>Title</label>
+        <input type="text" class="form-control" name="title" value="@Model.title">
+        <textarea name="content" class="form-control" cols="30" rows="10">@Model.content</textarea>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </form>    
+</div>

@@ -6,6 +6,7 @@
 <div class="text-center">
     <h1>@ViewData["Title"]</h1>
     <a href="~/Post/new">New Post</a>
+    <h3>@TempData["message"]</h3>
     <table class="table table-default">
         <thead>
             <tr>
@@ -23,8 +24,8 @@
             <td>@i.title</td>
             <td>@i.publishDate</td>
             <td>
-                <a href="~/Blog/@i.id" class="btn btn-primary">Edit</a>
-                <a href="~/Blog/@i.id/delete" class="btn btn-danger">Delete</a>
+                <a href="~/Post/@i.id" class="btn btn-primary">Edit</a>
+                <a href="~/Post/@i.id/delete" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         }
