@@ -70,6 +70,7 @@ namespace MvcNet.Controllers
                 _log.LogInformation("err0r");
               foreach (var modelState in ViewData.ModelState.Values)
               {
+                  TempData["error"] = modelState.Errors; 
                   foreach (ModelError error in modelState.Errors)
                   {
                       _log.LogInformation(error.ErrorMessage);

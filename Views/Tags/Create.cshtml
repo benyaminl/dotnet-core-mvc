@@ -7,6 +7,12 @@
 <h1>Create</h1>
 
 <h4>TagModel</h4>
+@if(TempData["error"] != null) 
+{
+  @foreach(var i in TempData["error"] as Microsoft.AspNetCore.Mvc.ModelBinding.ModelErrorCollection) {
+    @i.ErrorMessage
+  }
+}
 <hr />
 <div class="row">
     <div class="col-md-4">
