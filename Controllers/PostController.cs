@@ -27,6 +27,7 @@ namespace MvcNet.Controllers {
             _db.posts.Add(data);
             await _db.SaveChangesAsync();
             TempData["message"] = "Success Add Post";
+            _log.LogInformation("coba");
             return Redirect("~/Post/new");
         }
 

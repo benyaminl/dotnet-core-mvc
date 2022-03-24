@@ -6,9 +6,10 @@ namespace MvcNet.Models
     public class TagModel {
         [Key]
         public int id {get; set;}
+        [Required]
         public string tagName {get; set;} = null!;
         
         [ForeignKey("tagId")]
-        public ICollection<PostTagsModel> blogTags {get; set;} = null!;
+        public ICollection<PostTagsModel>? blogTags {get; set;}
     }
 }
