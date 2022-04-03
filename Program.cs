@@ -1,10 +1,17 @@
 using MvcNet;
 using Microsoft.EntityFrameworkCore;
+using NReco.Logging.File;
 
 var builder = WebApplication.CreateBuilder(args);
 // throw new Exception("Hai");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add File Logging, see appsettings.json
+builder.Services.AddLogging(logBuilder =>
+{
+    logBuilder.AddFile("app.log", append:true);
+});
 
 string host = builder.Configuration.GetValue<string>("MSSQL_HOST");
 string user = builder.Configuration.GetValue<string>("MSSQL_USER");
