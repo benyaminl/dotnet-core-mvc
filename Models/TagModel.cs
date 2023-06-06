@@ -10,6 +10,6 @@ namespace MvcNet.Models
         public string tagName {get; set;} = null!;
         
         [ForeignKey("tagId")]
-        public ICollection<PostTagsModel>? blogTags {get; set;}
+        public ICollection<PostTagsModel> blogTags {get; set;} = null!;
     }
 }

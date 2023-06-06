@@ -18,7 +18,6 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        _logger.LogInformation("Akses Index");
         return View();
     }
 
