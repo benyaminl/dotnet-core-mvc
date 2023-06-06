@@ -13,5 +13,8 @@ namespace MvcNet.Models
         
         [ForeignKey("postId")]
         public ICollection<PostTagsModel> blogTags {get; set;} = null!;
+
+        [InverseProperty("post")]
+        public ICollection<PostCommentModel> comments { get; set; } = null!;
     }
 }

@@ -18,5 +18,6 @@ namespace MvcNet {
         public DbSet<PostModel> posts {get; set;} = null!;
         public DbSet<TagModel> tags {get; set;} = null!;
         public DbSet<PostTagsModel> postTags {get; set;} = null!;
+        public DbSet<PostCommentModel> commentModels {get; set;} = null!;
     }
 }

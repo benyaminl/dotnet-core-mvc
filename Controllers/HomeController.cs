@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MvcNet.Models;
+using MvcNet.Models.Request;
 
 namespace MvcNet.Controllers;
 
@@ -38,9 +40,31 @@ public class HomeController : Controller
             return View("/Views/Blog/BlogPostList.cshtml",data);
         } else {
             
-            var data = _db.posts.Find(id);
+            var data = _db.posts
+                .Include(d => d.comments)
+                .First(d => d.id == id);
+            
             return View("/Views/Blog/BlogPostDetail.cshtml",data);
         }
+    }
+
+    public async Task<IActionResult> Comment(int id, [FromForm] CommentRequest request)
+    {
+
+        var c = new PostCommentModel();
+        c.name = request.name;
+        c.email = request.email;
+        c.content = request.content;
+        c.insertDate = DateTime.Now;
+        c.publishDate = DateTime.Now;
+        c.postId = id;
+
+        var result = _db.commentModels.Add(c);
+        await _db.SaveChangesAsync();
+
+        TempData["message"] = "Success Post new Comments";
+
+        return RedirectToAction("Blog", new { id = id });
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
