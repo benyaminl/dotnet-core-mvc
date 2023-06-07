@@ -1,8 +1,10 @@
 using MvcNet;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using MvcNet.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-// throw new Exception("Hai");
+  // throw new Exception("Hai");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -16,6 +18,50 @@ builder.Services.AddDbContext<AppDBContext>(
     opt => opt.UseSqlServer(@"Server="+host+","+port.ToString()
         +";Database="+db+";User Id="+user+";Password="+pass)
 );
+
+#region Identity Scafolding
+/// Strange thing is the Scafold is strange? Can't use same DBContext
+builder.Services.AddDbContext<MvcNetIdentityDbContext>(
+    opt => opt.UseSqlServer(@"Server=" + host + "," + port.ToString()
+        + ";Database=" + db + ";User Id=" + user + ";Password=" + pass)
+);
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<MvcNetIdentityDbContext>();
+builder.Services.AddRazorPages();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 4;
+    options.Password.RequiredUniqueChars = 1;
+
+    // Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+
+    // User settings.
+    options.User.AllowedUserNameCharacters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = false;
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    // Cookie settings
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.SlidingExpiration = true;
+});
+#endregion Identity Scafolding
 
 var app = builder.Build();
 
@@ -31,11 +77,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();

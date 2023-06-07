@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcNet.Models;
 
 namespace MvcNet.Controllers {
+    [Authorize]
     public class PostController : Controller {
         private readonly ILogger<PostController> _log;
         private readonly AppDBContext _db;
