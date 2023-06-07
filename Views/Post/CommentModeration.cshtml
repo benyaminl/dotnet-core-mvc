@@ -1,0 +1,37 @@
+@model MvcNet.Models.PostModel
+@{
+    ViewData["Title"] = "Blog Post Comment Moderation";
+}
+
+<h1>
+    @Model.title
+</h1>
+<div>
+    @Model.publishDate - 
+    @Model.insertDate
+</div>
+<article>
+    @Model.content
+</article>
+
+@* Start Comment List *@
+@foreach (PostCommentModel c in Model.comments)
+{
+    <div class="card">
+        <div class="card-body">
+        @c.name <br/>
+        @c.content <br/>
+        </div>
+        <a asp-action="DeleteComment" asp-route-id="@Model.id" asp-route-idComment="@c.id" asp-controller="Post" class="btn btn-danger">Delete</a>
+    </div>
+}
+
+@if(Model.comments.Count <= 0)
+{
+    <div class="card">
+        <div class="card-body">
+            There are no comments yet!
+        </div>
+    </div>
+}
+@* End Comment List *@

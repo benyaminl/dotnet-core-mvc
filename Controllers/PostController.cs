@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MvcNet.Models;
 
 namespace MvcNet.Controllers {
@@ -52,12 +53,37 @@ namespace MvcNet.Controllers {
             return View("/Views/Post/EditPost.cshtml",data);
         }
 
-        [HttpGet("/Post/{id}")]
+        [HttpPost("/Post/{id}")]
         public async Task<ActionResult> UpdatePostData(int id, PostModel data) {
             _db.posts.Update(data);
+            TempData["message"] = "Success Update Post";
             await _db.SaveChangesAsync();
             
             return View("/Views/Post/EditPost.cshtml",data);
+        }
+
+        [HttpGet("/Post/{id}/Comment")]
+        public ActionResult ListCommentModeration(int id)
+        {
+            var post = _db.posts
+                .Include(d => d.comments)
+                .First(d => d.id == id);
+
+            return View("/Views/Post/CommentModeration.cshtml", post);
+        }   
+
+        [HttpGet("/Post/{id}/comment/{idComment}")]
+        public async Task<ActionResult> DeleteComment(int idComment, int id)
+        {
+            var comment = _db.commentModels.Find(idComment);
+            if (comment != null)
+            {                
+                _db.commentModels.Remove(comment);
+                await _db.SaveChangesAsync();
+            }
+            TempData["message"] = "Success Delete Comment";
+
+            return Redirect("~/Post/"+id.ToString());
         }
     }
 }
