@@ -3,6 +3,11 @@
 }
 <h1>@ViewData["Title"]</h1>
 
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success"> <span class="closebtn" onclick="this.parentElement.style.display='none';"> × </span> @TempData["message"] </div>
+}
+
 <table class="table table-default">
     <thead>
         <tr>
@@ -18,7 +23,7 @@
                 <td>@u.Id</td>
                 <td>@u.UserName</td>
                 <td>
-                    
+                    <a href="~/User/@u.Id" class="btn btn-primary">Edit</a>
                 </td>
             </tr>
         }
