@@ -24,7 +24,7 @@
             <td>@i.title</td>
             <td>@i.publishDate</td>
             <td>
-                <a asp-action="ListCommentModeration" asp-controller="Post" asp-route-id="@i.id" class="btn btn-primary">Comments</a>
+                <a asp-action="ListCommentModeration" asp-controller="Post" asp-route-id="@i.id" class="btn btn-primary">(@i.comments.Count) Comments</a>
                 <a href="~/Post/@i.id" class="btn btn-primary">Edit</a>
                 <a href="~/Post/@i.id/delete" class="btn btn-danger">Delete</a>
             </td>

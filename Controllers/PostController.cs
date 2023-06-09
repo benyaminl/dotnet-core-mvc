@@ -16,8 +16,8 @@ namespace MvcNet.Controllers {
 
         [HttpGet("/Post")]
         public ActionResult Index() {
-            var data = _db.posts.ToList();
-            return View("/Views/Blog/Index.cshtml",data);
+            var data = _db.posts.Include(d => d.comments).ToList();
+            return View("/Views/Post/Index.cshtml",data);
         }
 
         [HttpGet("/Post/new")]
