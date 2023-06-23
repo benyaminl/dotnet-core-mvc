@@ -37,7 +37,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="~/Home/Blog">Blog</a>
                         </li>
-                        @if (SignInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User) || User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Master Blog</a>
