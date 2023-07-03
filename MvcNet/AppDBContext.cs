@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MvcNet.Models;
+using Post.Domain.Models;
 
 namespace MvcNet {
     public class AppDBContext : DbContext {

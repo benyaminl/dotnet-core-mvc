@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MvcNet.Models
+namespace Post.Domain.Models
 {
     [Table(name: "post_comments")]
     public class PostCommentModel

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Post.Domain.Models;
 
 namespace MvcNet.Models
 {

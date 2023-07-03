@@ -1,4 +1,4 @@
-@model MvcNet.Models.PostModel
+@model Post.Domain.Models.PostModel
 @{
     ViewData["Title"] = "Blog Post Comment Moderation";
 }
@@ -15,7 +15,7 @@
 </article>
 
 @* Start Comment List *@
-@foreach (PostCommentModel c in Model.comments)
+@foreach (Post.Domain.Models.PostCommentModel c in Model.comments)
 {
     <div class="card">
         <div class="card-body">

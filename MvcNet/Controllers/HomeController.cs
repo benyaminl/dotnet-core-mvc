@@ -3,19 +3,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MvcNet.Models;
 using MvcNet.Models.Request;
+using Post.Domain;
+using Post.Domain.Models;
+using Post.Infrastructure;
 
 namespace MvcNet.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly AppDBContext _db;
+    private readonly IPostRepository _postRepository;
+    private readonly IPostCommentRepository _commentRepository;
 
     public HomeController(ILogger<HomeController> logger,
                         AppDBContext db)
     {
         _logger = logger;
-        _db = db;
+        _postRepository = new PostRepository(db);
+        _commentRepository = new PostCommentRepository(db);
     }
 
     public IActionResult Index()
@@ -36,13 +41,10 @@ public class HomeController : Controller
     public IActionResult Blog(int id)
     {
         if (id == 0) {
-            var data = _db.posts.ToList();
+            var data = _postRepository.GetPostsAsync().Result;
             return View("/Views/Blog/BlogPostList.cshtml",data);
         } else {
-            
-            var data = _db.posts
-                .Include(d => d.comments)
-                .First(d => d.id == id);
+            var data = _postRepository.GetAsync(id).Result;
             
             return View("/Views/Blog/BlogPostDetail.cshtml",data);
         }
@@ -59,8 +61,8 @@ public class HomeController : Controller
         c.publishDate = DateTime.Now;
         c.postId = id;
 
-        var result = _db.commentModels.Add(c);
-        await _db.SaveChangesAsync();
+        var result = _commentRepository.AddComment(c);
+        _commentRepository.SaveChange();
 
         TempData["message"] = "Success Post new Comments";
 

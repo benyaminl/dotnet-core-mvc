@@ -1,9 +1,9 @@
-@model MvcNet.Models.PostModel
+@model Post.Domain.Models.PostModel
 
 <div class="mt-3">
     <h5>Comments</h5>
     @* Start Comment List *@
-    @foreach (PostCommentModel c in Model.comments)
+    @foreach (Post.Domain.Models.PostCommentModel c in Model.comments)
     {
         <div class="card">
             <div class="card-body">

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MvcNet.Models;
+using Post.Domain.Models;
 
 namespace MvcNet.Controllers {
     [Authorize]
