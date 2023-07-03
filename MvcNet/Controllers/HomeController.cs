@@ -16,11 +16,12 @@ public class HomeController : Controller
     private readonly IPostCommentRepository _commentRepository;
 
     public HomeController(ILogger<HomeController> logger,
-                        AppDBContext db)
+                            IPostCommentRepository commentRepository,
+                            IPostRepository postRepository)
     {
         _logger = logger;
-        _postRepository = new PostRepository(db);
-        _commentRepository = new PostCommentRepository(db);
+        _postRepository = postRepository;
+        _commentRepository = commentRepository;
     }
 
     public IActionResult Index()

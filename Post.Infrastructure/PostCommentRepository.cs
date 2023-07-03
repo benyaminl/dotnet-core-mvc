@@ -6,9 +6,9 @@ namespace Post.Infrastructure;
 
 public class PostCommentRepository : IPostCommentRepository
 {
-    private readonly DbContext _context;
+    private readonly PostContext _context;
 
-    public PostCommentRepository(DbContext context)
+    public PostCommentRepository(PostContext context)
     {
         _context = context;
     }

@@ -5,8 +5,8 @@ using Post.Domain;
 namespace Post.Infrastructure;
 public class PostRepository : IPostRepository
 {
-    private readonly DbContext _postRepository;
-    public PostRepository(DbContext repository)
+    private readonly PostContext _postRepository;
+    public PostRepository(PostContext repository)
     {
         _postRepository = repository;
     }
@@ -23,6 +23,7 @@ public class PostRepository : IPostRepository
     {
         return await _postRepository
             .Set<PostModel>()
+            .Include(d => d.comments)
             .Where(d => d.id == id)
             .SingleOrDefaultAsync();
     }

@@ -2,6 +2,9 @@ using MvcNet;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using MvcNet.Areas.Identity.Data;
+using Post.Infrastructure;
+using Post.Domain;
+using Post.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
   // throw new Exception("Hai");
@@ -18,6 +21,15 @@ builder.Services.AddDbContext<AppDBContext>(
     opt => opt.UseSqlServer(@"Server="+host+","+port.ToString()
         +";Database="+db+";User Id="+user+";Password="+pass)
 );
+
+builder.Services.AddDbContext<PostContext>(
+    opt => opt.UseSqlServer(@"Server="+host+","+port.ToString()
+        +";Database="+db+";User Id="+user+";Password="+pass)
+);
+
+
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IPostCommentRepository, PostCommentRepository>();
 
 #region Identity Scafolding
 /// Strange thing is the Scafold is strange? Can't use same DBContext
