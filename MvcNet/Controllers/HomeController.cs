@@ -11,15 +11,14 @@ namespace MvcNet.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    // private readonly ILogger<HomeController> _logger;
     private readonly IPostRepository _postRepository;
     private readonly IPostCommentRepository _commentRepository;
 
-    public HomeController(ILogger<HomeController> logger,
-                            IPostCommentRepository commentRepository,
+    public HomeController(IPostCommentRepository commentRepository,
                             IPostRepository postRepository)
     {
-        _logger = logger;
+        // _logger = logger;
         _postRepository = postRepository;
         _commentRepository = commentRepository;
     }
